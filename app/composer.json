@@ -1,0 +1,5 @@
+{
+    "require": {
+        "c3systems/c3-sdk-php": "^0.0.1"
+    }
+}
