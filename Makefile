@@ -3,23 +3,23 @@ all:
 
 .PHONY: build
 build:
-	@docker-compose up
+	@docker build -t demo .
 
 .PHONY: run
 run:
-	@docker-compose up
+	docker run -p 8080:8080 -p 3330:3330 demo:latest
 
-.PHONY: ssh/wp
-ssh/wp:
+.PHONY: ssh
+ssh:
 	@docker exec -it $(CONTAINER) /bin/bash
 
-.PHONY: ssh/db
-ssh/db:
-	@docker exec -it e2b83e16e36e /bin/bash
+.PHONY: ssh/last
+ssh/last:
+	@make ssh CONTAINER=$$(docker ps -q -l)
 
-.PHONY: test/payload
-test/payload:
-	@echo '["createPost"]' |  nc localhost 3330
+.PHONY: payload
+payload:
+	@echo '["createPost", "hello world", "my content"]' |  nc localhost 3330
 
 # requires plugin
 # https://github.com/WP-API/Basic-Auth
