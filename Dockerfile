@@ -18,10 +18,10 @@ RUN mkdir -p /var/www/html && cp -r wordpress/. /var/www/html/ && mkdir -p /var/
 
 RUN cp /etc/nginx/sites-available/default /etc/nginx/sites-available/wordpress
 
-COPY rootfs/* /
+COPY rootfs /
 COPY app /app
 
-RUN mv /nginx.conf /etc/nginx/sites-available/wordpress
+RUN mv /nginx/nginx.conf /etc/nginx/sites-available/wordpress
 RUN ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/
 RUN rm /etc/nginx/sites-enabled/default
 
