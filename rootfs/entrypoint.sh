@@ -2,6 +2,8 @@
 
 usermod -d /var/lib/mysql/ mysql
 
+mv /state.json /tmp/state.json
+
 # touching file is required
 # https://github.com/moby/moby/issues/34390
 find /var/lib/mysql -type f -exec touch {} \; && service mysql start

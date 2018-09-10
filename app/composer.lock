@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b4370563912ceae0f4cbca2db029024",
+    "content-hash": "d0b0ecb3e5057b4e22d26dca91f4c531",
     "packages": [
         {
             "name": "brick/math",
@@ -51,16 +51,16 @@
         },
         {
             "name": "c3systems/c3-sdk-php",
-            "version": "0.0.1",
+            "version": "0.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/c3systems/c3-sdk-php.git",
-                "reference": "ec4a0f5ba3ae618f52d89a84b86515a536f3e35a"
+                "reference": "a36900cc334e4cb3aa5624813a143639d8125467"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/c3systems/c3-sdk-php/zipball/ec4a0f5ba3ae618f52d89a84b86515a536f3e35a",
-                "reference": "ec4a0f5ba3ae618f52d89a84b86515a536f3e35a",
+                "url": "https://api.github.com/repos/c3systems/c3-sdk-php/zipball/a36900cc334e4cb3aa5624813a143639d8125467",
+                "reference": "a36900cc334e4cb3aa5624813a143639d8125467",
                 "shasum": ""
             },
             "require": {
@@ -85,7 +85,7 @@
                 }
             ],
             "description": "The C3 SDK for PHP",
-            "time": "2018-09-07T08:52:00+00:00"
+            "time": "2018-09-10T05:25:01+00:00"
         },
         {
             "name": "evenement/evenement",

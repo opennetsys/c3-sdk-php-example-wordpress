@@ -29,11 +29,19 @@ class State {
 
   function get($key) {
     global $store;
+
+    if (!isset($store[Util::byteArray2Hex($key)])) {
+      return (object) [
+        'found' => false,
+        'value' => ''
+      ];
+    }
+
     $v = $store[Util::byteArray2Hex($key)];
     $found = $v != null;
     $value = Util::hex2ByteArray($v);
 
-    return [
+    return (object) [
       'found' => $found,
       'value' => $value
     ];

@@ -12,11 +12,16 @@ class App {
   }
 
   function createPost($title, $content) {
+    $this->loadState();
+
     $curl = curl_init();
 
+    $payload = (object)[];
     $payload->title = $title;
     $payload->content= $content;
     $payload->status = 'publish';
+    // TODO: replace with block timestamp
+    $payload->date = '2018-08-01 00:00:00';
     $jsonstr = json_encode($payload);
 
     curl_setopt_array($curl, array(
@@ -47,6 +52,29 @@ class App {
       echo $response;
     }
 
+    $this->setState();
+  }
+
+  function loadState() {
+    $result = $this->client->state()->get(Util::string2ByteArray('posts'));
+    $query = Util::byteArray2String($result->value);
+
+    $command = "mysql wordpress -e 'DROP TABLE wp_posts;';";
+    shell_exec($command);
+
+    $fp = fopen('query.sql', 'w');
+    fwrite($fp, $query);
+    fclose($fp);
+
+    $command = 'mysql wordpress < query.sql';
+    shell_exec($command);
+  }
+
+  function setState() {
+    $command = "/usr/bin/mysqldump wordpress wp_posts --compact";
+    $output = shell_exec($command);
+
+    $this->client->state()->set(Util::string2ByteArray('posts'), Util::string2ByteArray($output));
   }
 }
 

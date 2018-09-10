@@ -23,7 +23,15 @@ class Util {
   }
 
   public static function byteArray2String($byteArray) {
-    $chars = array_map("chr", $byteArray);
+    if (!is_array($byteArray)) {
+      return '';
+    }
+
+    $chars = array_map('chr', $byteArray);
+    if (count($chars) == 0) {
+      return '';
+    }
+
     return join($chars);
   }
 

@@ -19,7 +19,7 @@ class App {
 
   function getItem($key) {
     $result = $this->client->state()->get(Util::string2ByteArray($key));
-    return Util::byteArray2String($result['value']);
+    return Util::byteArray2String($result->value);
   }
 }
 

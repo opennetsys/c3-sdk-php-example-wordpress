@@ -27,4 +27,7 @@ RUN rm /etc/nginx/sites-enabled/default
 
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 
+# https://stackoverflow.com/questions/9192027/invalid-default-value-for-create-date-timestamp-field
+RUN echo "sql_mode = ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION" >> /etc/mysql/mysql.conf.d/mysqld.cnf
+
 CMD /entrypoint.sh

@@ -91,17 +91,17 @@
     },
     {
         "name": "c3systems/c3-sdk-php",
-        "version": "0.0.1",
-        "version_normalized": "0.0.1.0",
+        "version": "0.0.2",
+        "version_normalized": "0.0.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/c3systems/c3-sdk-php.git",
-            "reference": "ec4a0f5ba3ae618f52d89a84b86515a536f3e35a"
+            "reference": "a36900cc334e4cb3aa5624813a143639d8125467"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/c3systems/c3-sdk-php/zipball/ec4a0f5ba3ae618f52d89a84b86515a536f3e35a",
-            "reference": "ec4a0f5ba3ae618f52d89a84b86515a536f3e35a",
+            "url": "https://api.github.com/repos/c3systems/c3-sdk-php/zipball/a36900cc334e4cb3aa5624813a143639d8125467",
+            "reference": "a36900cc334e4cb3aa5624813a143639d8125467",
             "shasum": ""
         },
         "require": {
@@ -109,7 +109,7 @@
             "evenement/evenement": "^3.0",
             "php": ">=7.1"
         },
-        "time": "2018-09-07T08:52:00+00:00",
+        "time": "2018-09-10T05:25:01+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
