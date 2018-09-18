@@ -1,3 +1,5 @@
+BIN = go run $$GOPATH/src/github.com/c3systems/c3-go/main.go
+
 all:
 	@echo "no default"
 
@@ -21,5 +23,18 @@ ssh/last:
 payload:
 	@echo '["createPost", "hello world", "my content"]' |  nc localhost 3330
 
-# requires plugin
-# https://github.com/WP-API/Basic-Auth
+.PHONY: key
+key:
+	@$(BIN) generate key
+
+PEER := "/ip4/127.0.0.1/tcp/3330/ipfs/QmZPNaCnnR59Dtw5nUuxv33pNXxRqKurnZTHLNJ6LaqEnx"
+
+.PHONY: deploy
+deploy:
+	@$(BIN) deploy --priv priv.pem --genesis '' --image 1042bc722199 --peer $(PEER)
+
+IMAGE := "1042bc722199"
+
+.PHONY: tx
+tx:
+	@$(BIN) invokeMethod --payload '["createPost", "hello world", "my content"]' --priv priv.pem --image $(IMAGE) --peer $(PEER)
