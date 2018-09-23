@@ -29,12 +29,12 @@ key:
 
 PEER := "/ip4/127.0.0.1/tcp/3330/ipfs/QmZPNaCnnR59Dtw5nUuxv33pNXxRqKurnZTHLNJ6LaqEnx"
 
+IMAGE := "2373725b0797"
+
 .PHONY: deploy
 deploy:
-	@$(BIN) deploy --priv priv.pem --genesis '' --image 1042bc722199 --peer $(PEER)
-
-IMAGE := "1042bc722199"
+	@$(BIN) deploy --priv priv.pem --genesis '' --image $(IMAGE) --peer $(PEER)
 
 .PHONY: tx
 tx:
-	@$(BIN) invokeMethod --payload '["createPost", "hello world", "my content"]' --priv priv.pem --image $(IMAGE) --peer $(PEER)
+	@$(BIN) invokeMethod --payload '["createPost", "hello world", "my content1"]' --priv priv.pem --image $(IMAGE) --peer $(PEER)

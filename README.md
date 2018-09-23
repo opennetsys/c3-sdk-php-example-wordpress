@@ -24,6 +24,12 @@ make payload
 
 Visit site to see blog post: [http://localhost:8080](http://localhost:8080)
 
+If you have a C3 node running you can test with
+
+```bash
+make deploy && make tx
+```
+
 ## License
 
 [GNU AGPL 3.0](LICENSE)
