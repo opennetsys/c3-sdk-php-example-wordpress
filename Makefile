@@ -9,7 +9,7 @@ build:
 
 .PHONY: run
 run:
-	docker run -p 8080:8080 -p 3330:3330 demo:latest
+	docker run -p 8080:8080 -p 3333:3333 demo:latest
 
 .PHONY: ssh
 ssh:
@@ -21,7 +21,7 @@ ssh/last:
 
 .PHONY: payload
 payload:
-	@echo '["createPost", "hello world", "my content"]' |  nc localhost 3330
+	@echo '["createPost", "hi world", "this is my content"]' |  nc localhost 3333
 
 .PHONY: key
 key:
@@ -29,7 +29,7 @@ key:
 
 PEER := "/ip4/127.0.0.1/tcp/3330/ipfs/QmZPNaCnnR59Dtw5nUuxv33pNXxRqKurnZTHLNJ6LaqEnx"
 
-IMAGE := "2373725b0797"
+IMAGE := "72dd62df4497"
 
 .PHONY: deploy
 deploy:
@@ -37,4 +37,7 @@ deploy:
 
 .PHONY: tx
 tx:
-	@$(BIN) invokeMethod --payload '["createPost", "hello world", "my content1"]' --priv priv.pem --image $(IMAGE) --peer $(PEER)
+	@$(BIN) invokeMethod --payload '["createPost", "hi world", "this is my content"]' --priv priv.pem --image $(IMAGE) --peer $(PEER)
+
+.PHONY: run/snapshot
+	@docker run --rm -v $(pwd)/start.sh:/start.sh -p 8080:8080 $(CONTAINERID) /start.sh

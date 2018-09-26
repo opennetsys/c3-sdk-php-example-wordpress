@@ -9,11 +9,10 @@ class App {
 
   function __construct() {
     $this->client = new Client;
+    $this->loadState();
   }
 
   function createPost($title, $content) {
-    $this->loadState();
-
     $curl = curl_init();
 
     $payload = (object)[];
@@ -56,25 +55,36 @@ class App {
   }
 
   function loadState() {
+    echo "loading state...\n";
     $result = $this->client->state()->get(Util::string2ByteArray('posts'));
-    $query = Util::byteArray2String($result->value);
+    $query = trim(Util::byteArray2String($result->value));
+
+    if ($query == "") {
+      echo "query empty; returning.\n";
+      return;
+    }
 
     $command = "mysql wordpress -e 'DROP TABLE wp_posts;';";
+    echo "wp_posts dropped\n";
     shell_exec($command);
 
     $fp = fopen('query.sql', 'w');
     fwrite($fp, $query);
     fclose($fp);
+    echo "query.sql wrote\n";
 
     $command = 'mysql wordpress < query.sql';
     shell_exec($command);
+    echo "sql imported\n";
   }
 
   function setState() {
     $command = "/usr/bin/mysqldump wordpress wp_posts --compact";
     $output = shell_exec($command);
 
+    echo "setting state: \n".$output."\n";
     $this->client->state()->set(Util::string2ByteArray('posts'), Util::string2ByteArray($output));
+    echo "set state finished\n";
   }
 }
 

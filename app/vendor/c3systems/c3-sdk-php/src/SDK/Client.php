@@ -80,6 +80,11 @@ class Kit {
 
   function processPayload($payload) {
     $args = json_decode($payload, true);
+
+    if (!isset($args[0])) {
+      return;
+    }
+
     $this->invoke($args[0], array_slice($args, 1));
   }
 
@@ -115,7 +120,7 @@ class Client {
       $port = getenv('PORT');
 
       if ($port == '') {
-        $port = 3330;
+        $port = 3333;
       }
 
       $socket = socket_create(AF_INET, SOCK_STREAM, 0) or die("Could not create socket\n");
