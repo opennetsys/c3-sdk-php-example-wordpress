@@ -37,7 +37,7 @@ key:
 
 PEER := "/ip4/127.0.0.1/tcp/3330/ipfs/QmZPNaCnnR59Dtw5nUuxv33pNXxRqKurnZTHLNJ6LaqEnx"
 
-IMAGE := "72dd62df4497"
+IMAGE := "d50ada614c01"
 
 .PHONY: deploy
 deploy:
@@ -47,6 +47,10 @@ deploy:
 tx:
 	@$(BIN) invokeMethod --payload '["createPost", "hi world", "this is my content"]' --priv priv.pem --image $(IMAGE) --peer $(PEER)
 
+.PHONY: tx/2
+tx/2:
+	@$(BIN) invokeMethod --payload '["createPost", "hi mars", "this is my other content"]' --priv priv.pem --image $(IMAGE) --peer $(PEER)
+
 .PHONY: run/snapshot
 run/snapshot:
-	@docker run --rm -v $$(pwd)/start.sh:/start.sh -p 8080:8080 $(IMAGE) /start.sh
+	@kill $$(lsof -t -i:8080); docker run --rm -v $$(pwd)/start.sh:/start.sh -p 8080:8080 $(IMAGE) /start.sh
