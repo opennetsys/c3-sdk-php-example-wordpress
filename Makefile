@@ -7,6 +7,10 @@ all:
 build:
 	@docker build -t demo .
 
+.PHONY: build/nocache
+build/nocache:
+	@docker build --no-cache -t demo .
+
 .PHONY: run
 run:
 	docker run -p 8080:8080 -p 3333:3333 demo:latest
@@ -19,9 +23,13 @@ ssh:
 ssh/last:
 	@make ssh CONTAINER=$$(docker ps -q -l)
 
-.PHONY: payload
-payload:
+.PHONY: payload/create
+payload/create:
 	@echo '["createPost", "hi world", "this is my content"]' |  nc localhost 3333
+
+.PHONY: payload/delete
+payload/delete:
+	@echo '["deletePost", "5"]' |  nc localhost 3333
 
 .PHONY: key
 key:
@@ -40,4 +48,5 @@ tx:
 	@$(BIN) invokeMethod --payload '["createPost", "hi world", "this is my content"]' --priv priv.pem --image $(IMAGE) --peer $(PEER)
 
 .PHONY: run/snapshot
-	@docker run --rm -v $(pwd)/start.sh:/start.sh -p 8080:8080 $(CONTAINERID) /start.sh
+run/snapshot:
+	@docker run --rm -v $$(pwd)/start.sh:/start.sh -p 8080:8080 $(IMAGE) /start.sh

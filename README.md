@@ -1,6 +1,6 @@
 # c3-sdk-php-example-wordpress
 
-> WordPress on [C3](https://github.com/c3systems/c3-go) using [c3-sdk-php](https://github.com/c3systems/c3-sdk-php)
+> WordPress on [C3](https://github.com/c3systems/c3-go) using [c3-sdk-php](https://github.com/c3systems/c3-sdk-php). This is a barebones proof-of-concept.
 
 ## Example
 
