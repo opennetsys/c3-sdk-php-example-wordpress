@@ -68,3 +68,7 @@ watch:
 .PHONY: docker/killall
 docker/killall:
 	@docker rm -f $$(docker ps -aq)
+
+.PHONY: stop
+stop:
+	@docker rm -f "$(CONTAINER)"
