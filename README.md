@@ -22,7 +22,7 @@ Send example payload to image
 make payload
 ```
 
-Visit site to see blog post: [http://localhost:8080](http://localhost:8080)
+Visit site to see blog post: [http://localhost:8000](http://localhost:8000)
 
 If you have a C3 node running you can test with
 

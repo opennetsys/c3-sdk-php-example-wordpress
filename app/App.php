@@ -13,7 +13,7 @@ function makeRequest($method, $url, $payload) {
   }
 
   curl_setopt_array($curl, array(
-    CURLOPT_PORT => "8080",
+    CURLOPT_PORT => "8000",
     CURLOPT_URL => $url,
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_ENCODING => "",
@@ -48,10 +48,11 @@ class App {
   function __construct() {
     $this->client = new Client;
     $this->loadState();
+    $this->baseUrl = "http://localhost:8000/wp-json/wp/v2";
   }
 
   function createPost($title, $content) {
-    $url = "http://localhost:8080/wp-json/wp/v2/posts";
+    $url = $this->baseUrl."/posts";
 
     $payload = (object)[];
     $payload->title = $title;
@@ -67,7 +68,7 @@ class App {
   }
 
   function deletePost($postId) {
-    $url = "http://localhost:8080/wp-json/wp/v2/posts/".$postId."?force=true";
+    $url = $this->baseUrl."/posts/".$postId."?force=true";
 
     $response = makeRequest("DELETE", $url, null);
     echo $response;
@@ -76,6 +77,7 @@ class App {
   }
 
   function loadState() {
+    $this->client->refreshState();
     echo "loading state...\n";
     $result = $this->client->state()->get(Util::string2ByteArray("posts"));
     $query = trim(Util::byteArray2String($result->value));
@@ -115,6 +117,7 @@ class App {
 $app = new App;
 $app->client->registerMethod("createPost", [], array($app, "createPost"));
 $app->client->registerMethod("deletePost", [], array($app, "deletePost"));
+$app->client->registerMethod("refresh", [], array($app, "loadState"));
 $app->client->serve();
 
 ?>

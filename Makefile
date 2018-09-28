@@ -1,4 +1,5 @@
 BIN = go run $$GOPATH/src/github.com/c3systems/c3-go/main.go
+WP_PORT = 8000
 
 all:
 	@echo "no default"
@@ -13,7 +14,7 @@ build/nocache:
 
 .PHONY: run
 run:
-	docker run -p 8080:8080 -p 3333:3333 demo:latest
+	docker run -p $(WP_PORT):$(WP_PORT) -p 3333:3333 demo:latest
 
 .PHONY: ssh
 ssh:
@@ -30,6 +31,10 @@ payload/create:
 .PHONY: payload/delete
 payload/delete:
 	@echo '["deletePost", "5"]' |  nc localhost 3333
+
+.PHONY: payload/refresh
+payload/refresh:
+	@echo '["refresh"]' |  nc localhost 3333
 
 .PHONY: key
 key:
@@ -53,4 +58,8 @@ tx/2:
 
 .PHONY: run/snapshot
 run/snapshot:
-	@kill $$(lsof -t -i:8080); docker run --rm -v $$(pwd)/start.sh:/start.sh -p 8080:8080 $(IMAGE) /start.sh
+	@kill $$(lsof -t -i:$(WP_PORT)); docker run --rm -v $$(pwd)/start.sh:/start.sh -p $(WP_PORT):$(WP_PORT) $(IMAGE) /start.sh
+
+.PHONY: watch
+watch:
+	@CONTAINER="$(CONTAINER)" ./watch.sh

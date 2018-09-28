@@ -105,6 +105,11 @@ class Client {
       $this->sdk->listen();
     }
 
+    // TODO: automatically refresh state on state file change
+    function refreshState() {
+      $this->sdk->setInitialState();
+    }
+
     function registerMethod($methodName, $types, $fn) {
       global $registeredMethods;
       $registeredMethods[$methodName] = array();
