@@ -19,4 +19,6 @@ wp core install --url="http://localhost:8080" --title="Blog Title" --admin_user=
 
 wp plugin install /plugins/basic-auth.zip --activate --allow-root --path=/var/www/html
 
+mysql wordpress -e 'TRUNCATE TABLE wp_posts;'
+
 php /app/App.php

@@ -37,7 +37,7 @@ key:
 
 PEER := "/ip4/127.0.0.1/tcp/3330/ipfs/QmZPNaCnnR59Dtw5nUuxv33pNXxRqKurnZTHLNJ6LaqEnx"
 
-IMAGE := "d50ada614c01"
+IMAGE := "ea7ab3bb2e67"
 
 .PHONY: deploy
 deploy:

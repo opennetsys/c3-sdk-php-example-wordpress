@@ -33,4 +33,3 @@ make deploy && make tx
 ## License
 
 [GNU AGPL 3.0](LICENSE)
-
