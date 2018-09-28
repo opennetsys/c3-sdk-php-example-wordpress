@@ -16,6 +16,8 @@ build/nocache:
 run:
 	docker run -p $(WP_PORT):$(WP_PORT) -p 3333:3333 demo:latest
 
+CONTAINER = "$$(docker ps --last 0 -q)"
+
 .PHONY: ssh
 ssh:
 	@docker exec -it $(CONTAINER) /bin/bash
@@ -24,9 +26,12 @@ ssh:
 ssh/last:
 	@make ssh CONTAINER=$$(docker ps -q -l)
 
+TITLE := "Hello World"
+CONTENT := "This is my first post"
+
 .PHONY: payload/create
 payload/create:
-	@echo '["createPost", "hi world", "this is my content"]' |  nc localhost 3333
+	@echo '["createPost", "$(TITLE)", "$(CONTENT)"]' |  nc localhost 3333
 
 .PHONY: payload/delete
 payload/delete:
@@ -50,11 +55,7 @@ deploy:
 
 .PHONY: tx
 tx:
-	@$(BIN) invokeMethod --payload '["createPost", "hi world", "this is my content"]' --priv priv.pem --image $(IMAGE) --peer $(PEER)
-
-.PHONY: tx/2
-tx/2:
-	@$(BIN) invokeMethod --payload '["createPost", "hi mars", "this is my other content"]' --priv priv.pem --image $(IMAGE) --peer $(PEER)
+	@$(BIN) invokeMethod --payload '["createPost", "$(TITLE)", "$(CONTENT)"]' --priv priv.pem --image $(IMAGE) --peer $(PEER)
 
 .PHONY: run/snapshot
 run/snapshot:
@@ -63,3 +64,7 @@ run/snapshot:
 .PHONY: watch
 watch:
 	@CONTAINER="$(CONTAINER)" ./watch.sh
+
+.PHONY: docker/killall
+docker/killall:
+	@docker rm -f $$(docker ps -aq)
