@@ -66,8 +66,10 @@ class Kit {
     if ($json != '') {
       $json = json_decode($json, true);
 
-      foreach ($json as $key => $value) {
-        $store[$key] = $value;
+      if (is_array($json) || is_object($json)) {
+        foreach ($json as $key => $value) {
+          $store[$key] = $value;
+        }
       }
     }
   }

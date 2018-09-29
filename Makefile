@@ -26,8 +26,8 @@ ssh:
 ssh/last:
 	@make ssh CONTAINER=$$(docker ps -q -l)
 
-TITLE := "Hello World"
-CONTENT := "This is my first post"
+TITLE = Hello World
+CONTENT = This is my first post
 
 .PHONY: payload/create
 payload/create:
@@ -47,7 +47,7 @@ key:
 
 PEER := "/ip4/127.0.0.1/tcp/3330/ipfs/QmZPNaCnnR59Dtw5nUuxv33pNXxRqKurnZTHLNJ6LaqEnx"
 
-IMAGE := "ea7ab3bb2e67"
+IMAGE := "e2289d0f442c"
 
 .PHONY: deploy
 deploy:
@@ -63,7 +63,7 @@ run/snapshot:
 
 .PHONY: watch
 watch:
-	@CONTAINER="$(CONTAINER)" ./watch.sh
+	@CONTAINER=$(CONTAINER); ./watch.sh
 
 .PHONY: docker/killall
 docker/killall:
