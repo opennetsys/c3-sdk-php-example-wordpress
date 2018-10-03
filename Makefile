@@ -63,7 +63,7 @@ run/snapshot:
 
 .PHONY: watch
 watch:
-	@CONTAINER=$(CONTAINER); ./watch.sh
+	@IMAGE=$(IMAGE) CONTAINER=$(CONTAINER); ./watch.sh
 
 .PHONY: docker/killall
 docker/killall:
