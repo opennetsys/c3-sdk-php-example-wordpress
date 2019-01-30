@@ -1,5 +1,6 @@
 BIN = go run $$GOPATH/src/github.com/c3systems/c3-go/main.go
 WP_PORT = 8000
+DB_PORT = 3306
 
 all:
 	@echo "no default"
@@ -14,7 +15,8 @@ build/nocache:
 
 .PHONY: run
 run:
-	docker run -p $(WP_PORT):$(WP_PORT) -p 3333:3333 demo:latest
+	docker run -p $(WP_PORT):$(WP_PORT) -p 3333:3333 -p $(DB_PORT):$(DB_PORT) -e IMAGE_ID="$(IMAGE)" demo:latest
+	#docker run -p $(WP_PORT):$(WP_PORT) -p 3333:3333 -p $(DB_PORT):$(DB_PORT) -e IMAGE_ID=$(docker images demo:latest -q) demo:latest
 
 CONTAINER = "$$(docker ps --last 0 -q)"
 
@@ -72,3 +74,7 @@ docker/killall:
 .PHONY: stop
 stop:
 	@docker rm -f "$(CONTAINER)"
+
+.PHONY: zip/plugin
+zip/plugin:
+	@(cd rootfs/plugins/c3/ && rm c3.zip && zip c3.zip c3.php)

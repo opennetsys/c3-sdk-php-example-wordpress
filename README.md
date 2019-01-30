@@ -19,7 +19,7 @@ make run
 Send example payload to image
 
 ```bash
-make payload
+make payload/create
 ```
 
 Visit site to see blog post: [http://localhost:8000](http://localhost:8000)
