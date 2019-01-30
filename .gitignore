@@ -6,3 +6,6 @@ tmp.txt
 priv.pem
 
 ~
+
+go.mod
+go.sum

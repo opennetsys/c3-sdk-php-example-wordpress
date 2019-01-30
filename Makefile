@@ -47,6 +47,10 @@ payload/refresh:
 key:
 	@$(BIN) generate key
 
+.PHONY: push
+push:
+	@$(BIN) push $(IMAGE)
+
 PEER := "/ip4/127.0.0.1/tcp/3330/ipfs/QmZPNaCnnR59Dtw5nUuxv33pNXxRqKurnZTHLNJ6LaqEnx"
 
 IMAGE := "e2289d0f442c"
@@ -57,7 +61,7 @@ deploy:
 
 .PHONY: tx
 tx:
-	@$(BIN) invokeMethod --payload '["createPost", "$(TITLE)", "$(CONTENT)"]' --priv priv.pem --image $(IMAGE) --peer $(PEER)
+	@$(BIN) invokeMethod --payload '["createPost", "$(TITLE)123", "$(CONTENT)"]' --priv priv.pem --image $(IMAGE) --peer $(PEER)
 
 .PHONY: run/snapshot
 run/snapshot:
